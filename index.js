@@ -28,6 +28,7 @@ client.connect((err) => {
       res.send(result.insertCount > 0);
     });
   });
+  
 
   app.get("/memes", (req, res) => {
     memesCollection.find({}).toArray((err, documents) => {
@@ -35,7 +36,12 @@ client.connect((err) => {
     });
     console.log("SUCCESSFULLY DONE");
   });
-
+  app.delete("/deleteMemes/:id", (req, res) => {
+    const id = ObjectID(req.params.id);
+    memesCollection.deleteOne({ _id: id }).then((result) => {
+      res.send(result.deletedCount > 0);
+    });
+  });
 
 
 
