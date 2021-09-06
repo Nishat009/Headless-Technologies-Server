@@ -21,6 +21,7 @@ const client = new MongoClient(uri, {
 });
 client.connect((err) => {
   const memesCollection = client.db("meme").collection("memes");
+  // const linkMemesCollection = client.db("meme").collection("linkMemes");
 
   app.post("/addMeme", (req, res) => {
     const newMeme = req.body;
@@ -28,7 +29,12 @@ client.connect((err) => {
       res.send(result.insertCount > 0);
     });
   });
-  
+  // app.post("/addMemes", (req, res) => {
+  //   const newMeme = req.body;
+  //   linkMemesCollection.insertOne(newMeme).then((result) => {
+  //     res.send(result.insertCount > 0);
+  //   });
+  // });
 
   app.get("/memes", (req, res) => {
     memesCollection.find({}).toArray((err, documents) => {
